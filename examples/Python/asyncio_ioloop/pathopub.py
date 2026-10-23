@@ -24,7 +24,7 @@ def run():
     publisher = Ctx.socket(zmq.PUB)
     publisher.bind(Url)
     # Ensure subscriber connection has time to complete
-    yield from asyncio.sleep(1)
+    yield from asyncio.ensure_future(asyncio.sleep(1))
     # Send out all 1,000 topic messages
     for topic_nbr in range(1000):
         yield from publisher.send_multipart([
@@ -37,7 +37,7 @@ def run():
     while True:
         count += 1
         # Send one random update per second
-        yield from asyncio.sleep(1)
+        yield from asyncio.ensure_future(asyncio.sleep(1))
         message = [
             b"%03d" % randint(0, 9),
             "Off with his head. {}".format(count).encode('utf-8'),
