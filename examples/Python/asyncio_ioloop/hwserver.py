@@ -30,7 +30,7 @@ def run():
         message = yield from socket.recv()
         print("Received request: {}".format(message))
         #  Do some "work"
-        yield from asyncio.sleep(1)
+        yield from asyncio.ensure_future(asyncio.sleep(1))
         #  Send reply back to client
         message = message.decode('utf-8')
         message = '{}, world'.format(message)
