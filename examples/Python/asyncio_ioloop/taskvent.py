@@ -48,7 +48,7 @@ def run_ventilator(context):
         yield from sender.send_string(u'%i' % workload)
     print("Total expected cost: %s msec" % total_msec)
     # Give 0MQ time to deliver
-    yield from asyncio.sleep(1)
+    yield from asyncio.ensure_future(asyncio.sleep(1))
 
 
 @asyncio.coroutine
