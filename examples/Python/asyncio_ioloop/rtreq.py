@@ -39,7 +39,7 @@ def worker_task(id, context=None):
             break
         total += 1
         # Do some random work
-        yield from asyncio.sleep(0.1 * random.random())
+        yield from asyncio.ensure_future(asyncio.sleep(0.1 * random.random()))
     return ('worker {}'.format(id), total)
 
 
