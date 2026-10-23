@@ -53,7 +53,7 @@ class Client(object):
             print('Client {} sent request: {}'.format(self.id, reqs))
             msg = yield from socket.recv()
             print('Client %s received: %s' % (identity, msg))
-            yield from asyncio.sleep(1)
+            yield from asyncio.ensure_future(asyncio.sleep(1))
             printdbg('(run_client) client {} after sleep'.format(self.id))
         #socket.close()
         #context.term()
@@ -110,7 +110,7 @@ class Worker(object):
         while True:
             ident, part2, msg = yield from worker.recv_multipart()
             print('Worker %s received %s from %s' % (self.idx, msg, ident))
-            yield from asyncio.sleep(0.5)
+            yield from asyncio.ensure_future(asyncio.sleep(0.5))
             yield from worker.send_multipart([ident, part2, msg])
         worker.close()
 
