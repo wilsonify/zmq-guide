@@ -168,7 +168,7 @@ def run_broker(loop):
     for worker_task in worker_tasks:
         worker_task.cancel()
     printdbg('(run_broker) workers cancelled')
-    yield from asyncio.sleep(1)
+    yield from asyncio.ensure_future(asyncio.sleep(1))
     frontend.close()
     backend.close()
     #context.term()     # Caution: calling term() blocks.
