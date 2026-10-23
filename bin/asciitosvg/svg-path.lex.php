@@ -321,7 +321,8 @@ array(
 						case -29:
 							break;
 						default:
-						$this->yy_error('INTERNAL',false);
+										$this->yy_error('INTERNAL',false);
+										break;
 					case -1:
 					}
 					$yy_initial = true;
