@@ -43,12 +43,6 @@ async def run_client(context, zip_filter):
           zip_filter, total_temp / update_nbr))
 
 
-@asyncio.coroutine
-def run(loop, zip_filter):
-    context = Context()
-    yield from run_client(context, zip_filter)
-
-
 def main():
     args = sys.argv[1:]
     if len(args) > 1:
@@ -57,7 +51,8 @@ def main():
     try:
         loop = ZMQEventLoop()
         asyncio.set_event_loop(loop)
-        loop.run_until_complete(run(loop, zip_filter))
+        context = Context()
+        loop.run_until_complete(run_client(context, zip_filter))
     except KeyboardInterrupt:
         print('\nFinished (interrupted)')
 
