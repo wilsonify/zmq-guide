@@ -77,11 +77,11 @@ def run_worker(context):
                     break
                 if cycles > 3 and randint(0, 5) == 0:
                     print("I: Simulating CPU overload")
-                    yield from asyncio.sleep(3)
+                    yield from asyncio.ensure_future(asyncio.sleep(3))
                 print("I: Normal reply")
                 yield from worker.send_multipart(frames)
                 liveness = HEARTBEAT_LIVENESS
-                yield from asyncio.sleep(1)  # Do some heavy work
+                yield from asyncio.ensure_future(asyncio.sleep(1))  # Do some heavy work
             elif len(frames) == 1 and frames[0] == PPP_HEARTBEAT:
                 print("I: Queue heartbeat")
                 liveness = HEARTBEAT_LIVENESS
@@ -93,7 +93,7 @@ def run_worker(context):
             if liveness == 0:
                 print("W: Heartbeat failure, can't reach queue")
                 print("W: Reconnecting in %0.2fs..." % interval)
-                yield from asyncio.sleep(interval)
+                yield from asyncio.ensure_future(asyncio.sleep(interval))
 
                 if interval < INTERVAL_MAX:
                     interval *= 2
