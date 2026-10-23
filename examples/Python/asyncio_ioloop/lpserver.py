@@ -41,13 +41,13 @@ def run_server():
             # Delay for a bit, else we get "Address already in use" error.
             # Note that to really simulate a crash, we should probably kill
             # this process and start another.
-            yield from asyncio.sleep(2)
+            yield from asyncio.ensure_future(asyncio.sleep(2))
             break
         elif cycles > 3 and randint(0, 3) == 0:
             print("I: Simulating CPU overload")
-            yield from asyncio.sleep(2)
+            yield from asyncio.ensure_future(asyncio.sleep(2))
         print("I: Normal request (%s)" % request)
-        yield from asyncio.sleep(1)       # Do some heavy work
+        yield from asyncio.ensure_future(asyncio.sleep(1))       # Do some heavy work
         yield from server.send(request)
     return (context, server)
 
