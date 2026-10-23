@@ -34,7 +34,7 @@ def run_worker(context):
         sys.stdout.write('.')
         sys.stdout.flush()
         # Do the work
-        yield from asyncio.sleep(int(s) * 0.001)
+        yield from asyncio.ensure_future(asyncio.sleep(int(s) * 0.001))
         # Send results to sink
         yield from sender.send(b'')
 
