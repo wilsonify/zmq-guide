@@ -41,7 +41,7 @@ def run_worker(context):
             # Process task
             workload = int(message)  # Workload in msecs
             # Do the work
-            yield from asyncio.sleep(workload / 1000.0)
+            yield from asyncio.ensure_future(asyncio.sleep(workload / 1000.0))
             # Send results to sink
             yield from sender.send(message)
             # Simple progress indicator for the viewer
