@@ -49,10 +49,10 @@ def run_worker():
             break
         elif cycles > 3 and randint(0, 5) == 0:
             print("I: (%s) simulating CPU overload" % identity)
-            yield from asyncio.sleep(3)
+            yield from asyncio.ensure_future(asyncio.sleep(3))
         print("I: (%s) normal reply" % identity)
         # Do some heavy work
-        yield from asyncio.sleep(1)
+        yield from asyncio.ensure_future(asyncio.sleep(1))
         yield from worker.send_multipart(msg)
 
 
