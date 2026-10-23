@@ -50,7 +50,7 @@ def run_worker(ident):
             message))
         printdbg("(worker_routine) Received message: %s".format(message))
         # Do some 'work'
-        yield from asyncio.sleep(1)
+        yield from asyncio.ensure_future(asyncio.sleep(1))
         # Send reply back to client
         message = '{} world, from {}'.format(message, ident).encode('utf-8')
         yield from socket.send(message)
