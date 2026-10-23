@@ -17,7 +17,12 @@ function rand(upper, extra) {
   return num + (extra || 0);
 };
 
-while (true) {
+var keepRunning = true;
+process.on('SIGINT', function () {
+  keepRunning = false;
+});
+
+while (keepRunning) {
   // Get values that will fool the boss
   var zipcode     = rand(100000)
     , temperature = rand(215, -80)
