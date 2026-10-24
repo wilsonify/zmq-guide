@@ -3,6 +3,7 @@
 // Publishes random weather updates
 
 var zmq = require('zeromq')
+  , crypto = require('node:crypto')
   , publisher = zmq.socket('pub');
 
 publisher.bindSync("tcp://*:5556");
@@ -13,7 +14,7 @@ function zeropad(num) {
 };
 
 function rand(upper, extra) {
-  var num = Math.abs(Math.round(Math.random() * upper));
+  var num = crypto.randomInt(upper + 1);
   return num + (extra || 0);
 };
 
