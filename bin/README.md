@@ -11,7 +11,7 @@ sudo apt-get install dblatex dbtoepub ditaa doc-base \
 
 On Ubuntu, you need (at least) these packages:
 
-    asciitosvg # install into /usr/local/bin
+    asciitosvg # install into /usr/local/bin, or use the vendored copy below
     dbtoepub
     docbook2ps
     inkscape
@@ -19,6 +19,14 @@ On Ubuntu, you need (at least) these packages:
     pstoedit
     pygmentize
     rasterizer
+
+`asciitosvg/` is a vendored copy of the tool (BSD 2-Clause); see
+[`PROVENANCE.md`](asciitosvg/PROVENANCE.md). The build scripts call `a2s` from
+`PATH`, so either install the distribution package or add the vendored directory:
+
+```sh
+export PATH="$PWD/bin/asciitosvg:$PATH"
+```
 
 # Update Wikidot
 
